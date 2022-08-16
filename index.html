@@ -55,7 +55,7 @@
       async function txDetails(tHash){
         var address = tHash
         const {  RequestManager, HTTPTransport, Client } = window.OpenRpcClient;
-        const transport = new HTTPTransport("https://bsc-mainnet.nodereal.io/v1/d641a55a636742a68ba1ba0100c5cc3c");
+        const transport = new HTTPTransport("https://bsc-mainnet.nodereal.io/v1/{YOUR-API-KEY}");
         const client = new Client(new RequestManager([transport]));
         const result = await client.request({method: "nr_getTokenMeta", params: [address]});
         console.log(result);
