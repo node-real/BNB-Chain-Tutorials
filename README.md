@@ -1,7 +1,7 @@
-# NodeReal Enhanced API Tutorial (Part 1)
+# Start developing explorer with NodeReal Enhanced API (Part 1)
 
 ## Overview
-Designed for anyone wanting to learn development on the BNB Smart Chain, this tutorial provides a step-by-step guide on how to develop a block explorer that uses the Nodereal enhanced API to fetch details from the BNB Smart Chain blockchain for the given transaction hash. The technology stack used in this tutorial includes Web3.js, Nodereal MegaNode, and http-server. 
+Designed for anyone wanting to learn development on the BNB Smart Chain, this tutorial provides a step-by-step guide on how to develop a block explorer that uses the Nodereal enhanced API to fetch details from the BNB Smart Chain blockchain for the given transaction hash. The technology stack used in this tutorial includes OpenRPC client, Nodereal MegaNode, and http-server. 
 
 ## What You Will Learn
 Through this tutorial, you will learn 
@@ -10,7 +10,7 @@ Through this tutorial, you will learn
 - How to deploy static pages onto localhost using http-server
 
 ## Target audience
-This tutorial aims to provide adequate information to anyone who wants to learn dApp development on BNB Smart Chain.
+This tutorial aims to provide adequate information to anyone who wants to learn web3 development on BNB Smart Chain.
 
 ## Prerequisites
   - node --version
@@ -23,18 +23,26 @@ This tutorial aims to provide adequate information to anyone who wants to learn 
 ## Setup
 
 1. **Clone the repository** ```gh repo clone node-real/BNB-Chain-Tutorials ```
-2. **Change the current directory** ```cd 01-BSC-Block-Explorer```
-3. **Include Nodereal Meganode API Key** make sure to include the HTTP link for the Nodereal Meganode API in the ```index.html``` as shown in the figure below. 
 
-![img](img/screenshot2.png)
+2. **Include Nodereal Meganode API Key** make sure to include the API URL for the Nodereal Meganode API in the ```index.html``` as shown in the figure below. 
 
-5. For this project we have used the BSC Testnet public API key as shown in the figure below. For a complete list of Nodereal Meganode Public API keys, refer [here](https://docs.nodereal.io/nodereal/meganode/meganode-api-overview/public-api-key).
-   
+   ```html5
+   <script>
+         async function txDetails(tHash){
+           var address = tHash
+           const {  RequestManager, HTTPTransport, Client } = window.OpenRpcClient;
+           const transport = new HTTPTransport("https://bsc-mainnet.nodereal.io/v1/{YOUR-API-KEY}");
+           const client = new Client(new RequestManager([transport]));
+           const result = await client.request({method: "nr_getTokenMeta", params: [address]});
+           console.log(result);
+           $('tbody').append("<tr><td>" + result.name + "</td><td>" + result.symbol + "</td><td>" + result.tokenType + "</td><td>" + result.decimals);
+         }
+   </script>
+   ```
 
-![img](img/screenshot3.png)
+3. **Install htpp-server** ```npm install -g http-server```
 
-5. **Install htpp-server** ```npm install -g http-server```
-6. **Run the application** ```http-server```
+4. **Run the application** ```http-server```
 
 ## Available Scripts
 ```sh
@@ -42,20 +50,23 @@ This tutorial aims to provide adequate information to anyone who wants to learn 
 ```
 
 ## Structure
-```
-02-BSC-Block-Explorer.
-|   index.html
-|   list.txt
-|   README.md
-|   screenshot.png
-|   
-+---img
-|       favicon.ico
-|       logo.png
-|       screenshot.png
-|       
-\---js
-        web3.min.js
+```shell
+.
+├── LICENSE
+├── README.md
+├── img
+│   ├── favicon.ico
+│   ├── logo.png
+│   ├── screenshot.png
+│   ├── screenshot2.png
+│   └── screenshot3.png
+├── index.html
+├── js
+│   ├── open-rpc-client.js
+│   └── web3.min.js
+├── list.txt
+├── package-lock.json
+
 ```
 
 ## How it Works
@@ -70,12 +81,16 @@ This tutorial aims to provide adequate information to anyone who wants to learn 
 
 ### How to Use
 - Run the application using the command ```http-server``` from the root directory of the project.
+
 - Open browser and navigate to any of the URLs specified by running the above step, for e.g., ```localhost:8080```.
-- Since we have used the HTTP reference of Nodereal’s Meganode API for BSC testnet, open [BSCscan for Testnet](https://testnet.bscscan.com/), and copy the transaction hash of any transaction of your choice.
-- Paste this transaction hash into the input field in our block explorer.
+
+- Paste address of a token into the input field in our block explorer. You can open the portal of [BSCScan](https://bscscan.com/), and find a token address.
+
 - Click on the _**Fetch Details**_ button to fetch details of the transaction.
 
-![img](img/screenshot.png)
+  ![40B7C16C-9C32-4F94-A1A7-B9C7DB1890CF](/Users/huizhao/Documents/BNB-Chain-Tutorials/img/screenshot3.jpeg)
+
+
 
 ## Contact
-For more inquiries and conversations, feel free to contact us at our [Discord Channel](https://discord.com/channels/789402563035660308/912296662834241597)
+For more inquiries and conversations, feel free to contact us at our [Discord Channel](https://discord.com/invite/nodereal)
