@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <title>BSC Block Explorer</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Styles -->
+    <style>
+      body {
+        padding-top: 15px;
+      }
+      h1 {
+        margin: 15px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center" >
+          <img src="img/logo.png" alt="logo" style="zoom: 50%;">
+          <h1>Block Explorer</h1>
+          <div class="container">
+            <label for="thash" class="col-lg-2 control-label" style="font-weight: bold; font-size: large;">Enter Address,Hash</label>
+            <input id="thash" type="text" style="width: 52%;"/>
+            <button id="fetch" onclick="txDetails($('#thash').val())" style="width: 10%;">Fetch Details</button>
+        </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Type</th>
+                <th scope="col">Decimals</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Web3 -->
+    <script src="js/open-rpc-client.js"></script>
+    <script>
+      async function txDetails(tHash){
+        var address = tHash
+        const {  RequestManager, HTTPTransport, Client } = window.OpenRpcClient;
+        const transport = new HTTPTransport("https://bsc-mainnet.nodereal.io/v1/d641a55a636742a68ba1ba0100c5cc3c");
+        const client = new Client(new RequestManager([transport]));
+        const result = await client.request({method: "nr_getTokenMeta", params: [address]});
+        console.log(result);
+        $('tbody').append("<tr><td>" + result.name + "</td><td>" + result.symbol + "</td><td>" + result.tokenType + "</td><td>" + result.decimals);
+      }
+    </script>
+  </body>
+</html>
