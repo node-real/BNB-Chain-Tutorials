@@ -88,7 +88,7 @@ This tutorial aims to provide adequate information to anyone who wants to learn 
 
 - Click on the _**Fetch Details**_ button to fetch details of the transaction.
 
-  ![40B7C16C-9C32-4F94-A1A7-B9C7DB1890CF](/Users/huizhao/Documents/BNB-Chain-Tutorials/img/screenshot3.jpeg)
+  ![40B7C16C-9C32-4F94-A1A7-B9C7DB1890CF](./img/screenshot3.jpeg)
 
 
 
