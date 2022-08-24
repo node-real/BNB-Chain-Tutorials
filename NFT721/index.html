@@ -35,6 +35,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Token ID</th>
+                <th scope="col">Total Supply</th>
+                <th scope="col">Image</th>
               </tr>
             </thead>
             <tbody>
@@ -60,8 +62,9 @@
         console.log(result.meta);
         const meta = JSON.parse(result.meta)
         const image = meta.image
-        $('tbody').append("<tr><td>" + meta.name + "</td><td>" + meta.description + "</td><td>" + meta.tokenId);
-        $('tbody').append("<img src=" + '\"' + image + '\" style=\"width:100px;height:100px;\">');
+        const supply = await client.request({method: "nr_getTotalSupply721", params: [address,"latest"]});
+        console.log(supply)
+        $('tbody').append("<tr><td>" + meta.name + "</td><td>" + meta.description + "</td><td>" + meta.tokenId + "</td><td>" + parseInt(supply, 16) + "</td><td>" + "<img src=" + '\"' + image + '\" style=\"width:100px;height:100px;\">');        
       }
     </script>
   </body>
