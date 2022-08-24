@@ -247,13 +247,15 @@ Hit CTRL-C to stop the server
 
 Let`s open the browser and open the link of the [application](http://127.0.0.1:8080).
 
-![image-20220824175948998](/img/image-20220824175948998.png)
+![image-20220824181015783](img/image-20220824181015783.png)
 
 And then you can copy the contract of the NFT and query the details. 
 
-![image-20220824180133510](img/:Users:huizhao:Library:Application Support:typora-user-images:image-20220824180133510.png)
+![image-20220824181112996](img/image-20220824181112996.png)
 
-All the metadata and total supply has been displayed. 
+All the metadata and total supply has been displayed. In the following tutorails, we will keep improving this application to make it more powerful. 
+
+
 
 
 
